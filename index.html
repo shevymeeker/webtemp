@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Custom Website Generator</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="form-mode">
+
+  <h1>🛠 Client Website Generator</h1>
+
+  <form id="siteForm">
+    <label>Logo Upload</label>
+    <input type="file" id="logoUploader" accept="image/*" required />
+
+    <label>Business Name</label>
+    <input type="text" id="businessName" placeholder="Owensboro Mowing Company" required>
+
+    <label>Hero Headline</label>
+    <textarea id="heroText" placeholder="Clean\nCut.\nFast."></textarea>
+
+    <label>Call to Action (CTA Button Text)</label>
+    <input type="text" id="ctaText" placeholder="Free Quote" required>
+
+    <label>Service Sections</label>
+    <textarea id="services" placeholder="Overgrowth Control | Description...\nLow Hanging Branches | Description..."></textarea>
+
+    <label>Contact Message</label>
+    <textarea id="contactMsg" placeholder="Let us know your address and how we can help."></textarea>
+
+    <button type="submit">Generate Site</button>
+  </form>
+
+  <h2>Generated HTML:</h2>
+  <textarea id="output" rows="40" style="width:100%"></textarea>
+
+  <script src="script.js"></script>
+</body>
+</html>
