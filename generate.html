@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Custom Website Generator</title>
+  <style>
+    body {
+      font-family: 'Georgia', serif;
+      background: #111;
+      color: #eee;
+      padding: 2rem;
+    }
+    input, textarea, button {
+      display: block;
+      width: 100%;
+      margin-bottom: 1rem;
+      padding: 0.75rem;
+      font-size: 1rem;
+    }
+    textarea#output {
+      height: 300px;
+      background: #000;
+      color: #0f0;
+      font-family: monospace;
+    }
+  </style>
+</head>
+<body>
+  <h1>🌱 Website Generator</h1>
+
+  <label>Logo Upload</label>
+  <input type="file" id="logoUploader" accept="image/*" />
+
+  <label>Business Name</label>
+  <input type="text" id="businessName" value="Owensboro Mowing Company" />
+
+  <label>Hero Headline</label>
+  <textarea id="heroText">Clean
+Cut.
+Fast.</textarea>
+
+  <label>CTA Button</label>
+  <input type="text" id="ctaText" value="Free Quote" />
+
+  <label>Services</label>
+  <textarea id="services">Overgrowth Control | Ditches and property lines cleared.
+Low Hanging Branches | Removing hazardous low limbs.
+Weekly Lawn Care | Consistent mowing and trimming.</textarea>
+
+  <label>Contact Message</label>
+  <textarea id="contactMsg">Let us know your address and how we can help.</textarea>
+
+  <button onclick="generateSite()">Generate Site</button>
+
+  <h2>Generated HTML:</h2>
+  <textarea id="output" readonly></textarea>
+
+  <script>
+    function getAverageColor(img, callback) {
+      const canvas = document.createElement("canvas");
+      canvas.width = canvas.height = 1;
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(img, 0, 0, 1, 1);
+      const [r, g, b] = ctx.getImageData(0, 0, 1, 1).data;
+      callback({ r, g, b });
+    }
+
+    function rgbToHex({ r, g, b }) {
+      return "#" + [r, g, b].map(x => x.toString(16).padStart(2, "0")).join("");
+    }
+
+    function getTextColor({ r, g, b }) {
+      const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+      return brightness > 186 ? "#000" : "#fff";
+    }
+
+    function generateSite() {
+      const businessName = document.getElementById("businessName").value;
+      const heroText = document.getElementById("heroText").value.replace(/\n/g, "<br>");
+      const ctaText = document.getElementById("ctaText").value;
+      const contactMsg = document.getElementById("contactMsg").value;
+      const servicesRaw = document.getElementById("services").value;
+
+      const file = document.getElementById("logoUploader").files[0];
+      if (!file) return alert("Upload a logo first!");
+
+      const img = new Image();
+      const reader = new FileReader();
+
+      reader.onload = function (event) {
+        img.src = event.target.result;
+        img.onload = () => {
+          getAverageColor(img, (avg) => {
+            const mainColor = rgbToHex(avg);
+            const textColor = getTextColor(avg);
+            const bgColor = textColor === "#fff" ? "#000" : "#fff";
+
+            const servicesHTML = servicesRaw.split("\n").map(line => {
+              const [title, desc] = line.split("|").map(str => str.trim());
+              return `
+              <div class="accordion-item">
+                <button class="accordion-header">${title}</button>
+                <div class="accordion-content">${desc || ""}</div>
+              </div>`;
+            }).join("\n");
+
+            const htmlOutput = `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>${businessName}</title>
+  <style>
+    :root {
+      --main-color: ${mainColor};
+      --text-color: ${textColor};
+      --bg-color: ${bgColor};
+    }
+    body {
+      font-family: Georgia, serif;
+      background: var(--bg-color);
+      color: var(--text-color);
+      margin: 0;
+    }
+    header {
+      background: var(--bg-color);
+      color: var(--main-color);
+      display: flex;
+      justify-content: space-between;
+      padding: 1rem;
+      font-weight: bold;
+    }
+    .hero {
+      background: url('${img.src}') center/cover;
+      padding: 4rem 1rem;
+      text-align: center;
+      color: var(--bg-color);
+    }
+    .hero h2 {
+      font-size: 2.5rem;
+    }
+    .quote-btn {
+      background: var(--main-color);
+      color: var(--text-color);
+      padding: 0.5rem 1rem;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 1rem;
+    }
+    .accordion-item {
+      padding: 1rem;
+      border-bottom: 1px solid #ccc;
+    }
+    .accordion-header {
+      background: none;
+      border: none;
+      color: var(--main-color);
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+    .accordion-content {
+      display: none;
+      padding-top: 0.5rem;
+    }
+    .accordion-header.active + .accordion-content {
+      display: block;
+    }
+    .contact {
+      background: var(--main-color);
+      color: var(--bg-color);
+      padding: 2rem 1rem;
+    }
+    footer {
+      text-align: center;
+      background: var(--main-color);
+      color: var(--bg-color);
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">${businessName}</div>
+    <div class="menu">&#9776;</div>
+  </header>
+
+  <section class="hero">
+    <h2>${heroText}</h2>
+    <a href="#contact" class="quote-btn">${ctaText}</a>
+  </section>
+
+  <section class="services">
+    <h2 style="padding: 1rem;">Our Services</h2>
+    ${servicesHTML}
+  </section>
+
+  <section class="contact" id="contact">
+    <h2>Get in touch</h2>
+    <p>${contactMsg}</p>
+    <form>
+      <input type="text" placeholder="Address" required>
+      <textarea placeholder="Name - Phone - How we can help" required></textarea>
+      <button type="submit">Send</button>
+    </form>
+  </section>
+
+  <footer>
+    <p>${businessName}</p>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.accordion-header').forEach(button => {
+      button.addEventListener('click', () => {
+        const active = button.classList.contains('active');
+        document.querySelectorAll('.accordion-header').forEach(btn => {
+          btn.classList.remove('active');
+          btn.nextElementSibling.style.display = 'none';
+        });
+        if (!active) {
+          button.classList.add('active');
+          button.nextElementSibling.style.display = 'block';
+        }
+      });
+    });
+  </script>
+</body>
+</html>`.trim();
+
+            document.getElementById("output").value = htmlOutput;
+          });
+        };
+      };
+
+      reader.readAsDataURL(file);
+    }
+  </script>
+</body>
+</html>
