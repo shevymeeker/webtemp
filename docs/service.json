@@ -30,8 +30,8 @@
       "description": "Complete stump grinding and removal to clear your landscape and prepare sites for replanting or construction."
     },
     {
-      "name": "Emergency/ Storn Damage",
-      "description": "emergency response for fallen trees, storm damage, and urgent tree hazards threatening property or safety."
+      "name": "Emergency/ Storm Damage",
+      "description": "Emergency response for fallen trees, storm damage, and urgent tree hazards threatening property or safety."
     }
   ],
 
@@ -83,6 +83,6 @@
   "meta": {
     "title": "Notta Trace Tree Service - Mclean County, Ky | Tree Removal ",
     "description": "Professional tree removal, trimming, stump grinding, and emergency services. Complete cleanup with zero debris left behind. Licensed and insured.",
-    "keywords": "tree removal mclean county ky, emergency tree service, stump grinding, storm cleanup, insured arborist, local tree trimming"
+    "keywords": "tree removal mclean county ky, emergency tree service, stump grinding, storm cleanup, insured, local tree trimming"
   }
 }
