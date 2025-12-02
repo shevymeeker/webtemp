@@ -1,0 +1,89 @@
+{
+  "business": {
+    "name": "Notta-Trace Tree Service",
+    "tagline": "Support Local",
+    "subtitle": "Professional tree removal and stump grinding with complete cleanup",
+    "phone": "(270) 499 0735",
+    "email": "placeholder@gmail.com",
+    "address": "Mclean County, Kentucky, USA",
+    "brandColor": "#2dad64",
+    "brandColorHover": "#a42dad"
+  },
+
+  "hero": {
+    "backgroundImage": "background.jpg",
+    "ctaText": "Get Free Estimate",
+    "ctaLink": "#contact"
+  },
+
+  "services": [
+    {
+      "name": "Tree Removal",
+      "description": "Safe removal of hazardous, dead, or unwanted trees with complete debris cleanup and site restoration."
+    },
+    {
+      "name": "Trimming and Pruning",
+      "description": "Professional tree trimming and pruning to improve tree health, reduce hazards, and maintain property aesthetics."
+    },
+    {
+      "name": "Stump Grinding",
+      "description": "Complete stump grinding and removal to clear your landscape and prepare sites for replanting or construction."
+    },
+    {
+      "name": "Emergency/ Storn Damage",
+      "description": "emergency response for fallen trees, storm damage, and urgent tree hazards threatening property or safety."
+    },
+    }
+  ],
+
+  "contact": {
+    "heading": "Mclean County and surrounding areas",
+    "subheading": "Snap a Pic, Send it in, Get a free quote",
+    "fields": [
+      {
+        "type": "text",
+        "placeholder": "Notta-Trace Tree Service",
+        "required": true
+      },
+      {
+        "type": "email",
+        "placeholder": "Notta-Trace@gmail.com",
+        "required": true
+      },
+      {
+        "type": "tel",
+        "placeholder": "2704990735",
+        "required": false
+      },
+      {
+        "type": "textarea",
+        "placeholder": "Show us the problem",
+        "required": true
+      }
+    ],
+    "submitText": "Request Quote",
+    "formAction": "#"
+  },
+
+  "gallery": {
+    "images": [
+      "images/before-after-1.jpg",
+      "images/before-after-2.jpg",
+      "images/kitchen-clean.jpg",
+      "images/office-clean.jpg",
+      "images/carpet-clean.jpg",
+      "images/window-clean.jpg"
+    ]
+  },
+
+  "footer": {
+    "text": "Notta-Trace - Freindly Neighborhood Tree Service",
+    "year": "2025"
+  },
+
+  "meta": {
+    "title": "Notta Trace Tree Service - Mclean County, Ky | Tree Removal ",
+    "description": "Professional tree removal, trimming, stump grinding, and emergency services. Complete cleanup with zero debris left behind. Licensed and insured.",
+    "keywords": "cleaning service, house cleaning, commercial cleaning, carpet cleaning, deep cleaning"
+  }
+}
