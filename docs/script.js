@@ -1,182 +1,201 @@
-function getAverageColor(img, callback) {
-  const canvas = document.createElement("canvas");
-  canvas.width = canvas.height = 1;
-  const ctx = canvas.getContext("2d");
-  ctx.drawImage(img, 0, 0, 1, 1);
-  const [r, g, b] = ctx.getImageData(0, 0, 1, 1).data;
-  callback({ r, g, b });
-}
+// Load service.json and populate the template
+fetch('service.json')
+  .then(response => response.json())
+  .then(data => {
+    // Update meta tags
+    document.title = data.meta.title;
+    document.querySelector('meta[name="description"]').content = data.meta.description;
+    document.querySelector('meta[name="keywords"]').content = data.meta.keywords;
 
-function rgbToHex({ r, g, b }) {
-  return "#" + [r, g, b].map(x => x.toString(16).padStart(2, "0")).join("");
-}
+    // Update text content
+    document.querySelectorAll('.logo').forEach(el => {
+      el.textContent = data.business.name;
+    });
 
-function getTextColor(rgb) {
-  const brightness = (rgb.r * 299 + rgb.g * 587 + rgb.b * 114) / 1000;
-  return brightness > 186 ? "#000" : "#fff";
-}
-
-document.getElementById("siteForm").addEventListener("submit", function (e) {
-  e.preventDefault();
-
-  const businessName = document.getElementById("businessName").value;
-  const heroText = document.getElementById("heroText").value.replace(/\n/g, "<br>");
-  const ctaText = document.getElementById("ctaText").value;
-  const contactMsg = document.getElementById("contactMsg").value;
-  const servicesRaw = document.getElementById("services").value;
-
-  const file = document.getElementById("logoUploader").files[0];
-  const img = new Image();
-  const reader = new FileReader();
-
-  reader.onload = function (event) {
-    img.src = event.target.result;
-    img.onload = () => {
-      getAverageColor(img, (avg) => {
-        const mainColor = rgbToHex(avg);
-        const textColor = getTextColor(avg);
-        const bgColor = textColor === "#fff" ? "#000" : "#fff";
-
-        const servicesHTML = servicesRaw.split("\n").map(line => {
-          const [title, description] = line.split("|").map(str => str.trim());
-          return `
-          <div class="accordion-item">
-            <button class="accordion-header">${title}</button>
-            <div class="accordion-content">${description || ""}</div>
-          </div>`;
-        }).join("\n");
-
-        const htmlOutput = `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>${businessName}</title>
-  <style>
-    :root {
-      --main-color: ${mainColor};
-      --text-color: ${textColor};
-      --bg-color: ${bgColor};
+    // Update hero section
+    const heroTitle = document.querySelector('.hero-title');
+    if (heroTitle) {
+      heroTitle.innerHTML = data.business.tagline.split('\n').join('<br>');
     }
-    body {
-      font-family: Georgia, serif;
-      background: var(--bg-color);
-      color: var(--text-color);
-      margin: 0;
-    }
-    header {
-      background: var(--bg-color);
-      color: var(--main-color);
-      display: flex;
-      justify-content: space-between;
-      padding: 1rem;
-      font-weight: bold;
-    }
-    .hero {
-      background: url('${img.src}') no-repeat center/cover;
-      padding: 4rem 1rem;
-      text-align: center;
-      color: var(--bg-color);
-    }
-    .hero h2 {
-      font-size: 3rem;
-    }
-    .quote-btn {
-      background: var(--main-color);
-      color: var(--text-color);
-      padding: 0.75rem 1.5rem;
-      text-decoration: none;
-      display: inline-block;
-      margin-top: 1rem;
-    }
-    .accordion .accordion-header {
-      background: none;
-      border: none;
-      color: var(--main-color);
-      font-size: 1.2rem;
-      padding: 1rem 0;
-      width: 100%;
-      text-align: left;
-    }
-    .accordion-content {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s ease;
-      color: var(--text-color);
-    }
-    .accordion-header.active + .accordion-content {
-      max-height: 300px;
-      padding-bottom: 1rem;
-    }
-    .contact {
-      background: var(--main-color);
-      color: var(--bg-color);
-      padding: 2rem 1rem;
-    }
-    footer {
-      background: var(--main-color);
-      color: var(--bg-color);
-      text-align: center;
-      padding: 1rem;
-    }
-  </style>
-</head>
-<body>
 
-  <header>
-    <div class="logo">${businessName}</div>
-    <div class="menu-toggle">&#9776;</div>
-  </header>
+    const heroSubtitle = document.querySelector('.hero-subtitle');
+    if (heroSubtitle) {
+      heroSubtitle.textContent = data.business.subtitle;
+    }
 
-  <section class="hero">
-    <h2>${heroText}</h2>
-    <a href="#contact" class="quote-btn">${ctaText}</a>
-  </section>
+    const quoteBtn = document.querySelector('.quote-btn');
+    if (quoteBtn) {
+      quoteBtn.textContent = data.hero.ctaText;
+      quoteBtn.href = data.hero.ctaLink;
+    }
 
-  <section class="services">
-    <h2>Our Services</h2>
-    <div class="accordion">${servicesHTML}</div>
-  </section>
+    // Build services accordion
+    const accordion = document.querySelector('.accordion');
+    if (accordion && data.services) {
+      accordion.innerHTML = data.services.map(service => `
+        <div class="accordion-item">
+          <button class="accordion-header">${service.name}</button>
+          <div class="accordion-content">
+            <p>${service.description}</p>
+          </div>
+        </div>
+      `).join('');
 
-  <section class="contact" id="contact">
-    <h2>Get in touch</h2>
-    <p>${contactMsg}</p>
-    <form>
-      <input type="text" placeholder="Address" required><br>
-      <textarea placeholder="Name - Phone - How we can help" required></textarea><br>
-      <button type="submit">Send</button>
-    </form>
-  </section>
+      // Add accordion click handlers
+      document.querySelectorAll('.accordion-header').forEach(button => {
+        button.addEventListener('click', () => {
+          const isActive = button.classList.contains('active');
 
-  <footer>
-    <p>${businessName}</p>
-  </footer>
+          // Close all accordions
+          document.querySelectorAll('.accordion-header').forEach(btn => {
+            btn.classList.remove('active');
+          });
 
-  <script>
-    document.querySelectorAll('.accordion-header').forEach(button => {
-      button.addEventListener('click', () => {
-        const active = button.classList.contains('active');
-        document.querySelectorAll('.accordion-header').forEach(btn => {
-          btn.classList.remove('active');
-          btn.nextElementSibling.style.maxHeight = null;
+          // Open clicked accordion if it wasn't active
+          if (!isActive) {
+            button.classList.add('active');
+          }
         });
-        if (!active) {
-          button.classList.add('active');
-          const content = button.nextElementSibling;
-          content.style.maxHeight = content.scrollHeight + 'px';
+      });
+    }
+
+    // Update contact section
+    const contactHeading = document.querySelector('.contact h2');
+    if (contactHeading) {
+      contactHeading.textContent = data.contact.heading;
+    }
+
+    const contactSubheading = document.querySelector('.contact p');
+    if (contactSubheading) {
+      contactSubheading.textContent = data.contact.subheading;
+    }
+
+    const contactForm = document.querySelector('.contact form');
+    if (contactForm && data.contact.fields) {
+      contactForm.action = data.contact.formAction;
+
+      // Build form fields
+      const fieldsHTML = data.contact.fields.map(field => {
+        if (field.type === 'textarea') {
+          return `<textarea placeholder="${field.placeholder}" ${field.required ? 'required' : ''}></textarea>`;
         }
+        return `<input type="${field.type}" placeholder="${field.placeholder}" ${field.required ? 'required' : ''}>`;
+      }).join('\n');
+
+      contactForm.innerHTML = fieldsHTML + `\n      <button type="submit">${data.contact.submitText}</button>`;
+    }
+
+    // Update gallery
+    const carouselSlides = document.querySelector('.carousel-slides');
+    if (carouselSlides && data.gallery.images) {
+      carouselSlides.innerHTML = data.gallery.images.map(image =>
+        `<div class="carousel-slide"><img src="${image}" alt="Gallery image"></div>`
+      ).join('');
+
+      // Initialize carousel
+      initCarousel();
+    }
+
+    // Update footer
+    const footer = document.querySelector('footer p');
+    if (footer) {
+      footer.innerHTML = `&copy; ${data.footer.year} ${data.footer.text}`;
+    }
+
+    // Apply brand colors
+    if (data.business.brandColor) {
+      document.documentElement.style.setProperty('--brand-color', data.business.brandColor);
+    }
+    if (data.business.brandColorHover) {
+      document.documentElement.style.setProperty('--brand-color-hover', data.business.brandColorHover);
+    }
+  })
+  .catch(error => {
+    console.error('Error loading service.json:', error);
+  });
+
+// Carousel functionality
+function initCarousel() {
+  const slides = document.querySelectorAll('.carousel-slide');
+  const indicators = document.querySelector('.carousel-indicators');
+  const prevBtn = document.querySelector('.prev-btn');
+  const nextBtn = document.querySelector('.next-btn');
+
+  if (slides.length === 0) return;
+
+  let currentSlide = 0;
+
+  // Create indicators
+  if (indicators) {
+    indicators.innerHTML = slides.length > 0
+      ? Array.from(slides).map((_, i) =>
+          `<span class="indicator ${i === 0 ? 'active' : ''}" data-slide="${i}"></span>`
+        ).join('')
+      : '';
+
+    // Indicator click handlers
+    indicators.querySelectorAll('.indicator').forEach(indicator => {
+      indicator.addEventListener('click', () => {
+        currentSlide = parseInt(indicator.dataset.slide);
+        updateCarousel();
       });
     });
-  </script>
+  }
 
-</body>
-</html>`;
+  function updateCarousel() {
+    // Update slides
+    slides.forEach((slide, index) => {
+      slide.style.display = index === currentSlide ? 'block' : 'none';
+    });
 
-        document.getElementById("output").value = htmlOutput.trim();
-      };
-    };
-  };
+    // Update indicators
+    if (indicators) {
+      indicators.querySelectorAll('.indicator').forEach((ind, index) => {
+        ind.classList.toggle('active', index === currentSlide);
+      });
+    }
+  }
 
-  reader.readAsDataURL(file);
-});
+  // Navigation buttons
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+      updateCarousel();
+    });
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      currentSlide = (currentSlide + 1) % slides.length;
+      updateCarousel();
+    });
+  }
+
+  // Initialize
+  updateCarousel();
+
+  // Auto-advance carousel every 5 seconds
+  setInterval(() => {
+    currentSlide = (currentSlide + 1) % slides.length;
+    updateCarousel();
+  }, 5000);
+}
+
+// Mobile menu toggle
+const menuToggle = document.getElementById('menuToggle');
+const mobileMenu = document.getElementById('mobileMenu');
+
+if (menuToggle && mobileMenu) {
+  menuToggle.addEventListener('click', () => {
+    mobileMenu.classList.toggle('active');
+    menuToggle.classList.toggle('active');
+  });
+
+  // Close mobile menu when clicking a link
+  mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.remove('active');
+      menuToggle.classList.remove('active');
+    });
+  });
+}
