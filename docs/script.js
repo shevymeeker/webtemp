@@ -24,8 +24,12 @@ function populatePage(data) {
     document.querySelector('meta[name="keywords"]').content = data.meta.keywords;
 
     // Update text content
-    document.querySelectorAll('.logo').forEach(el => {
+    document.querySelectorAll('.brand-name').forEach(el => {
       el.textContent = data.business.name;
+    });
+
+    document.querySelectorAll('.brand-subline').forEach(el => {
+      el.textContent = data.business.subtitle || 'Local tree removal & cleanup pros';
     });
 
     // Update hero section
@@ -43,6 +47,11 @@ function populatePage(data) {
     if (quoteBtn) {
       quoteBtn.textContent = data.hero.ctaText;
       quoteBtn.href = data.hero.ctaLink;
+    }
+
+    const heroSection = document.querySelector('.hero');
+    if (heroSection && data.hero.backgroundImage) {
+      document.documentElement.style.setProperty('--hero-image', `url('${data.hero.backgroundImage}')`);
     }
 
     // Build services accordion
@@ -101,11 +110,31 @@ function populatePage(data) {
       contactForm.innerHTML = fieldsHTML + `\n      <button type="submit">${data.contact.submitText}</button>`;
     }
 
+    const phone = data.business.phone || '';
+    const email = data.business.email || '';
+    const sanitizedPhone = phone.replace(/[^\d+]/g, '');
+    const callLink = document.getElementById('callLink');
+    const textLink = document.getElementById('textLink');
+    const emailLink = document.getElementById('emailLink');
+
+    if (callLink && phone) {
+      callLink.href = `tel:${sanitizedPhone}`;
+      callLink.textContent = `Call ${phone}`;
+    }
+
+    if (textLink && phone) {
+      textLink.href = `sms:${sanitizedPhone}`;
+    }
+
+    if (emailLink && email) {
+      emailLink.href = `mailto:${email}`;
+    }
+
     // Update gallery
     const carouselSlides = document.querySelector('.carousel-slides');
     if (carouselSlides && data.gallery.images) {
       carouselSlides.innerHTML = data.gallery.images.map(image =>
-        `<div class="carousel-slide"><img src="${image}" alt="Gallery image"></div>`
+        `<div class="carousel-slide"><img src="${image}" alt="Notta-Trace tree service project photo"></div>`
       ).join('');
 
       // Initialize carousel
@@ -113,7 +142,7 @@ function populatePage(data) {
     }
 
     // Update footer
-    const footer = document.querySelector('footer p');
+    const footer = document.querySelector('.footer-meta p');
     if (footer) {
       footer.innerHTML = `&copy; ${data.footer.year} ${data.footer.text}`;
     }
@@ -126,6 +155,7 @@ function populatePage(data) {
     document.documentElement.style.setProperty('--brand-color-hover', data.business.brandColorHover);
   }
 
+  insertStructuredData(data);
   // Initialize mobile menu
   initMobileMenu();
 }
@@ -145,12 +175,12 @@ function initCarousel() {
   if (indicators) {
     indicators.innerHTML = slides.length > 0
       ? Array.from(slides).map((_, i) =>
-          `<span class="indicator ${i === 0 ? 'active' : ''}" data-slide="${i}"></span>`
+          `<span class="dot ${i === 0 ? 'active' : ''}" data-slide="${i}"></span>`
         ).join('')
       : '';
 
     // Indicator click handlers
-    indicators.querySelectorAll('.indicator').forEach(indicator => {
+    indicators.querySelectorAll('.dot').forEach(indicator => {
       indicator.addEventListener('click', () => {
         currentSlide = parseInt(indicator.dataset.slide);
         updateCarousel();
@@ -166,7 +196,7 @@ function initCarousel() {
 
     // Update indicators
     if (indicators) {
-      indicators.querySelectorAll('.indicator').forEach((ind, index) => {
+      indicators.querySelectorAll('.dot').forEach((ind, index) => {
         ind.classList.toggle('active', index === currentSlide);
       });
     }
@@ -216,4 +246,33 @@ function initMobileMenu() {
       });
     });
   }
+}
+
+function insertStructuredData(data) {
+  const script = document.createElement('script');
+  script.type = 'application/ld+json';
+  const phone = data.business.phone || '';
+  const sanitizedPhone = phone.replace(/[^\d+]/g, '');
+  script.textContent = JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    name: data.business.name,
+    image: new URL('logo.png', window.location.href).href,
+    url: window.location.href,
+    telephone: phone,
+    email: data.business.email || undefined,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: data.business.address,
+      addressLocality: 'McLean County',
+      addressRegion: 'KY',
+      addressCountry: 'US'
+    },
+    areaServed: data.contact.heading || 'McLean County, KY',
+    sameAs: [
+      sanitizedPhone ? `tel:${sanitizedPhone}` : undefined,
+      data.business.email ? `mailto:${data.business.email}` : undefined
+    ].filter(Boolean)
+  });
+  document.head.appendChild(script);
 }
