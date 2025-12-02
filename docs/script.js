@@ -1,7 +1,23 @@
-// Load service.json and populate the template
-fetch('service.json')
-  .then(response => response.json())
-  .then(data => {
+// Wait for DOM to be ready
+document.addEventListener('DOMContentLoaded', function() {
+  // Load service.json and populate the template
+  fetch('service.json')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Failed to load service.json');
+      }
+      return response.json();
+    })
+    .then(data => {
+      populatePage(data);
+    })
+    .catch(error => {
+      console.error('Error loading service.json:', error);
+      document.body.innerHTML = '<div style="padding: 2rem; text-align: center;"><h1>Error Loading Page</h1><p>' + error.message + '</p><p>Make sure you\'re viewing this page through a web server (not file://).</p></div>';
+    });
+});
+
+function populatePage(data) {
     // Update meta tags
     document.title = data.meta.title;
     document.querySelector('meta[name="description"]').content = data.meta.description;
@@ -102,17 +118,17 @@ fetch('service.json')
       footer.innerHTML = `&copy; ${data.footer.year} ${data.footer.text}`;
     }
 
-    // Apply brand colors
-    if (data.business.brandColor) {
-      document.documentElement.style.setProperty('--brand-color', data.business.brandColor);
-    }
-    if (data.business.brandColorHover) {
-      document.documentElement.style.setProperty('--brand-color-hover', data.business.brandColorHover);
-    }
-  })
-  .catch(error => {
-    console.error('Error loading service.json:', error);
-  });
+  // Apply brand colors
+  if (data.business.brandColor) {
+    document.documentElement.style.setProperty('--brand-color', data.business.brandColor);
+  }
+  if (data.business.brandColorHover) {
+    document.documentElement.style.setProperty('--brand-color-hover', data.business.brandColorHover);
+  }
+
+  // Initialize mobile menu
+  initMobileMenu();
+}
 
 // Carousel functionality
 function initCarousel() {
@@ -182,20 +198,22 @@ function initCarousel() {
 }
 
 // Mobile menu toggle
-const menuToggle = document.getElementById('menuToggle');
-const mobileMenu = document.getElementById('mobileMenu');
+function initMobileMenu() {
+  const menuToggle = document.getElementById('menuToggle');
+  const mobileMenu = document.getElementById('mobileMenu');
 
-if (menuToggle && mobileMenu) {
-  menuToggle.addEventListener('click', () => {
-    mobileMenu.classList.toggle('active');
-    menuToggle.classList.toggle('active');
-  });
-
-  // Close mobile menu when clicking a link
-  mobileMenu.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      mobileMenu.classList.remove('active');
-      menuToggle.classList.remove('active');
+  if (menuToggle && mobileMenu) {
+    menuToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('active');
+      menuToggle.classList.toggle('active');
     });
-  });
+
+    // Close mobile menu when clicking a link
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('active');
+        menuToggle.classList.remove('active');
+      });
+    });
+  }
 }
