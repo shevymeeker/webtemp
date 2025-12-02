@@ -1,0 +1,221 @@
+#!/usr/bin/env python3
+"""
+Service Business Website Template Generator
+============================================
+
+This script generates a customized website from the template files
+using the configuration in config.json.
+
+Usage:
+    python generate.py [config_file] [output_directory]
+
+Example:
+    python generate.py config.json ../new-client-site
+    python generate.py my-client-config.json ./output
+"""
+
+import json
+import os
+import sys
+import shutil
+from pathlib import Path
+
+
+def load_config(config_path):
+    """Load and return the configuration JSON."""
+    with open(config_path, 'r') as f:
+        return json.load(f)
+
+
+def generate_hero_tagline_html(tagline):
+    """Convert tagline into animated HTML spans."""
+    words = tagline.split()
+    html_parts = []
+
+    for i, word in enumerate(words):
+        delay_class = f' delay-{i}' if i > 0 else ''
+        html_parts.append(f'<span class="hero-word fade-in-up{delay_class}">{word}</span>')
+
+    return '\n        '.join(html_parts)
+
+
+def generate_services_html(services):
+    """Generate the services accordion HTML."""
+    html_parts = []
+
+    for service in services:
+        html = f'''      <div class="accordion-item">
+        <button class="accordion-header">{service['name']}</button>
+        <div class="accordion-content">
+          {service['description']}
+        </div>
+      </div>'''
+        html_parts.append(html)
+
+    return '\n'.join(html_parts)
+
+
+def generate_contact_fields_html(fields):
+    """Generate the contact form fields HTML."""
+    html_parts = []
+
+    for field in fields:
+        required = ' required' if field.get('required', False) else ''
+
+        if field['type'] == 'textarea':
+            html = f'      <textarea placeholder="{field["placeholder"]}"{required}></textarea>'
+        else:
+            html = f'      <input type="{field["type"]}" placeholder="{field["placeholder"]}"{required}>'
+
+        html_parts.append(html)
+
+    return '\n'.join(html_parts)
+
+
+def generate_gallery_images_html(images):
+    """Generate the gallery images HTML."""
+    html_parts = []
+
+    for i, image in enumerate(images):
+        active_class = ' active' if i == 0 else ''
+        html = f'        <img src="{image}" alt="Project {i+1}" class="carousel-slide{active_class}" />'
+        html_parts.append(html)
+
+    return '\n'.join(html_parts)
+
+
+def replace_css_colors(css_content, brand_color, brand_color_hover):
+    """Replace brand colors in CSS."""
+    # Replace primary brand color
+    css_content = css_content.replace('#00b33c', brand_color)
+    # Replace hover color
+    css_content = css_content.replace('#00ff4c', brand_color_hover)
+    # Also replace rgba versions
+    css_content = css_content.replace('rgba(0, 179, 60,', f'rgba({hex_to_rgb(brand_color)},')
+    css_content = css_content.replace('rgba(0, 255, 76,', f'rgba({hex_to_rgb(brand_color_hover)},')
+
+    return css_content
+
+
+def hex_to_rgb(hex_color):
+    """Convert hex color to RGB values."""
+    hex_color = hex_color.lstrip('#')
+    return ', '.join(str(int(hex_color[i:i+2], 16)) for i in (0, 2, 4))
+
+
+def generate_site(config_path, output_dir):
+    """Generate the complete website from template and config."""
+
+    # Load configuration
+    print(f"📄 Loading configuration from {config_path}...")
+    config = load_config(config_path)
+
+    # Create output directory
+    output_path = Path(output_dir)
+    output_path.mkdir(parents=True, exist_ok=True)
+    print(f"📁 Created output directory: {output_dir}")
+
+    # Load template HTML
+    template_dir = Path(__file__).parent
+    with open(template_dir / 'index.template.html', 'r') as f:
+        html_template = f.read()
+
+    # Generate dynamic HTML sections
+    print("🔨 Generating HTML sections...")
+    hero_tagline_html = generate_hero_tagline_html(config['business']['tagline'])
+    services_html = generate_services_html(config['services'])
+    contact_fields_html = generate_contact_fields_html(config['contact']['fields'])
+    gallery_images_html = generate_gallery_images_html(config['gallery']['images'])
+
+    # Replace placeholders in HTML
+    replacements = {
+        '{{BUSINESS_NAME}}': config['business']['name'],
+        '{{META_TITLE}}': config['meta']['title'],
+        '{{META_DESCRIPTION}}': config['meta']['description'],
+        '{{META_KEYWORDS}}': config['meta']['keywords'],
+        '{{HERO_TAGLINE_HTML}}': hero_tagline_html,
+        '{{HERO_SUBTITLE}}': config['business']['subtitle'],
+        '{{HERO_CTA_TEXT}}': config['hero']['ctaText'],
+        '{{HERO_CTA_LINK}}': config['hero']['ctaLink'],
+        '{{SERVICES_HTML}}': services_html,
+        '{{CONTACT_HEADING}}': config['contact']['heading'],
+        '{{CONTACT_SUBHEADING}}': config['contact']['subheading'],
+        '{{CONTACT_FORM_FIELDS}}': contact_fields_html,
+        '{{CONTACT_SUBMIT_TEXT}}': config['contact']['submitText'],
+        '{{CONTACT_FORM_ACTION}}': config['contact']['formAction'],
+        '{{GALLERY_IMAGES_HTML}}': gallery_images_html,
+        '{{FOOTER_TEXT}}': config['footer']['text'],
+    }
+
+    html_content = html_template
+    for placeholder, value in replacements.items():
+        html_content = html_content.replace(placeholder, value)
+
+    # Write HTML file
+    with open(output_path / 'index.html', 'w') as f:
+        f.write(html_content)
+    print("✅ Generated index.html")
+
+    # Load and customize CSS
+    with open(template_dir / 'style.template.css', 'r') as f:
+        css_content = f.read()
+
+    css_content = replace_css_colors(
+        css_content,
+        config['business']['brandColor'],
+        config['business']['brandColorHover']
+    )
+
+    # Replace background image reference
+    css_content = css_content.replace("url('background.jpg')", f"url('{config['hero']['backgroundImage']}')")
+
+    with open(output_path / 'style.css', 'w') as f:
+        f.write(css_content)
+    print("✅ Generated style.css with custom brand colors")
+
+    # Copy JavaScript file
+    shutil.copy(template_dir / 'script.js', output_path / 'script.js')
+    print("✅ Copied script.js")
+
+    # Create images directory
+    (output_path / 'images').mkdir(exist_ok=True)
+    print("✅ Created images/ directory")
+
+    print(f"\n🎉 Website generated successfully in: {output_dir}")
+    print(f"\n📋 Next steps:")
+    print(f"   1. Copy your images to {output_dir}/images/")
+    print(f"   2. Copy your background image ({config['hero']['backgroundImage']}) to {output_dir}/")
+    print(f"   3. Open {output_dir}/index.html in a browser to preview")
+    print(f"   4. Deploy to your web server or GitHub Pages")
+
+
+def main():
+    """Main function to run the generator."""
+    if len(sys.argv) < 2:
+        config_path = 'config.json'
+        output_dir = '../output'
+        print(f"ℹ️  No arguments provided. Using defaults:")
+        print(f"   Config: {config_path}")
+        print(f"   Output: {output_dir}")
+    elif len(sys.argv) < 3:
+        config_path = sys.argv[1]
+        output_dir = '../output'
+        print(f"ℹ️  Output directory not specified. Using: {output_dir}")
+    else:
+        config_path = sys.argv[1]
+        output_dir = sys.argv[2]
+
+    try:
+        generate_site(config_path, output_dir)
+    except FileNotFoundError as e:
+        print(f"❌ Error: {e}")
+        print(f"\nMake sure you're running this from the template directory")
+        print(f"and that the config file exists.")
+        sys.exit(1)
+    except Exception as e:
+        print(f"❌ Error generating site: {e}")
+        sys.exit(1)
+
+
+if __name__ == '__main__':
+    main()

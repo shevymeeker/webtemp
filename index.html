@@ -2,38 +2,123 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Custom Website Generator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Owensboro Mowing Company</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-<body class="form-mode">
+<body>
 
-  <h1>🛠 Client Website Generator</h1>
+  <!-- Header -->
+  <header>
+    <div class="logo">Owensboro Mowing Company</div>
+    <nav class="nav-menu">
+      <a href="#services">Services</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="menu-toggle" id="menuToggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </header>
 
-  <form id="siteForm">
-    <label>Logo Upload</label>
-    <input type="file" id="logoUploader" accept="image/*" required />
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#services">Services</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#contact">Contact</a>
+  </div>
 
-    <label>Business Name</label>
-    <input type="text" id="businessName" placeholder="Owensboro Mowing Company" required>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1 class="hero-title">
+        <span class="hero-word fade-in-up">Clean</span>
+        <span class="hero-word fade-in-up delay-1">Cut.</span>
+        <span class="hero-word fade-in-up delay-2">Fast.</span>
+      </h1>
+      <p class="hero-subtitle fade-in-up delay-3">Professional lawn care for Owensboro</p>
+      <a href="#contact" class="quote-btn pulse-btn">Get Free Quote</a>
+    </div>
+  </section>
 
-    <label>Hero Headline</label>
-    <textarea id="heroText" placeholder="Clean\nCut.\nFast."></textarea>
+  <!-- Services Section -->
+  <section id="services" class="services">
+    <h2>Our<br>Services</h2>
 
-    <label>Call to Action (CTA Button Text)</label>
-    <input type="text" id="ctaText" placeholder="Free Quote" required>
+    <div class="accordion">
+      <div class="accordion-item">
+        <button class="accordion-header">Overgrowth Control</button>
+        <div class="accordion-content">
+          Ditches, fencerows, and property lines that standard mowers can’t handle. We clear thick brush, tall weeds, and overgrown areas with equipment built for heavy work.
+        </div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-header">Low Hanging Branches</button>
+        <div class="accordion-content">
+          Removal of low branches that obstruct views, paths, or pose hazards.
+        </div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-header">Weekly Lawn Care</button>
+        <div class="accordion-content">
+          Regular mowing and trimming for commercial properties, rental units, and large residential lots.
+        </div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-header">Landscaping</button>
+        <div class="accordion-content">
+          Custom landscaping for curb appeal and outdoor functionality.
+        </div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-header">Leaf/Snow Control</button>
+        <div class="accordion-content">
+          Seasonal leaf cleanups and snow removal services.
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <label>Service Sections</label>
-    <textarea id="services" placeholder="Overgrowth Control | Description...\nLow Hanging Branches | Description..."></textarea>
+  <!-- Contact Section -->
+  <section id="contact" class="contact">
+    <h2>Get in touch.</h2>
+    <p>Let us know your address and how we can help.</p>
+    <form>
+      <input type="text" placeholder="Address" required>
+      <textarea placeholder="Name - Phone - How we can help" required></textarea>
+      <button type="submit">Send</button>
+    </form>
+  </section>
 
-    <label>Contact Message</label>
-    <textarea id="contactMsg" placeholder="Let us know your address and how we can help."></textarea>
+  <!-- Footer / Gallery -->
+  <section id="gallery" class="gallery">
+    <div class="carousel-container">
+      <div class="carousel-slides">
+        <img src="images/received_1150515896377038.jpeg" alt="Lawn Care Project 1" class="carousel-slide active" />
+        <img src="images/received_679884470840860.jpeg" alt="Lawn Care Project 2" class="carousel-slide" />
+        <img src="images/IMG_0533.JPG" alt="Lawn Care Project 3" class="carousel-slide" />
+        <img src="images/IMG_0536.JPG" alt="Lawn Care Project 4" class="carousel-slide" />
+        <img src="images/photo5.jpg" alt="Lawn Care Project 5" class="carousel-slide" />
+        <img src="images/photo6.jpg" alt="Lawn Care Project 6" class="carousel-slide" />
+        <img src="images/photo7.jpg" alt="Lawn Care Project 7" class="carousel-slide" />
+        <img src="images/photo8.jpg" alt="Lawn Care Project 8" class="carousel-slide" />
+        <img src="images/photo9.jpg" alt="Lawn Care Project 9" class="carousel-slide" />
+        <img src="images/photo10.jpg" alt="Lawn Care Project 10" class="carousel-slide" />
+      </div>
+      <div class="gallery-controls">
+        <button class="prev-btn">&lt;</button>
+        <button class="next-btn">&gt;</button>
+      </div>
+      <div class="carousel-indicators"></div>
+    </div>
+  </section>
 
-    <button type="submit">Generate Site</button>
-  </form>
-
-  <h2>Generated HTML:</h2>
-  <textarea id="output" rows="40" style="width:100%"></textarea>
+  <footer>
+    <p>Owensboro Mowing Company</p>
+  </footer>
 
   <script src="script.js"></script>
 </body>

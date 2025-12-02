@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="{{META_DESCRIPTION}}" />
+  <meta name="keywords" content="{{META_KEYWORDS}}" />
+  <title>{{META_TITLE}}</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="logo">{{BUSINESS_NAME}}</div>
+    <nav class="nav-menu">
+      <a href="#services">Services</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="menu-toggle" id="menuToggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </header>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#services">Services</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#contact">Contact</a>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1 class="hero-title">
+        {{HERO_TAGLINE_HTML}}
+      </h1>
+      <p class="hero-subtitle fade-in-up delay-3">{{HERO_SUBTITLE}}</p>
+      <a href="{{HERO_CTA_LINK}}" class="quote-btn pulse-btn">{{HERO_CTA_TEXT}}</a>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section id="services" class="services">
+    <h2>Our<br>Services</h2>
+
+    <div class="accordion">
+      {{SERVICES_HTML}}
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="contact">
+    <h2>{{CONTACT_HEADING}}</h2>
+    <p>{{CONTACT_SUBHEADING}}</p>
+    <form action="{{CONTACT_FORM_ACTION}}" method="POST">
+      {{CONTACT_FORM_FIELDS}}
+      <button type="submit">{{CONTACT_SUBMIT_TEXT}}</button>
+    </form>
+  </section>
+
+  <!-- Footer / Gallery -->
+  <section id="gallery" class="gallery">
+    <div class="carousel-container">
+      <div class="carousel-slides">
+        {{GALLERY_IMAGES_HTML}}
+      </div>
+      <div class="gallery-controls">
+        <button class="prev-btn">&lt;</button>
+        <button class="next-btn">&gt;</button>
+      </div>
+      <div class="carousel-indicators"></div>
+    </div>
+  </section>
+
+  <footer>
+    <p>{{FOOTER_TEXT}}</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

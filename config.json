@@ -1,0 +1,86 @@
+{
+  "business": {
+    "name": "Owensboro Mowing Company",
+    "tagline": "Clean Cut. Fast.",
+    "subtitle": "Professional lawn care for Owensboro",
+    "phone": "(270) 555-0123",
+    "email": "info@owensboromowing.com",
+    "address": "Owensboro, KY",
+    "brandColor": "#00b33c",
+    "brandColorHover": "#00ff4c"
+  },
+
+  "hero": {
+    "backgroundImage": "background.jpg",
+    "ctaText": "Get Free Quote",
+    "ctaLink": "#contact"
+  },
+
+  "services": [
+    {
+      "name": "Overgrowth Control",
+      "description": "Ditches, fencerows, and property lines that standard mowers can't handle. We clear thick brush, tall weeds, and overgrown areas with equipment built for heavy work."
+    },
+    {
+      "name": "Low Hanging Branches",
+      "description": "Removal of low branches that obstruct views, paths, or pose hazards."
+    },
+    {
+      "name": "Weekly Lawn Care",
+      "description": "Regular mowing and trimming for commercial properties, rental units, and large residential lots."
+    },
+    {
+      "name": "Landscaping",
+      "description": "Custom landscaping for curb appeal and outdoor functionality."
+    },
+    {
+      "name": "Leaf/Snow Control",
+      "description": "Seasonal leaf cleanups and snow removal services."
+    }
+  ],
+
+  "contact": {
+    "heading": "Get in touch.",
+    "subheading": "Let us know your address and how we can help.",
+    "fields": [
+      {
+        "type": "text",
+        "placeholder": "Address",
+        "required": true
+      },
+      {
+        "type": "textarea",
+        "placeholder": "Name - Phone - How we can help",
+        "required": true
+      }
+    ],
+    "submitText": "Send",
+    "formAction": "#"
+  },
+
+  "gallery": {
+    "images": [
+      "images/received_1150515896377038.jpeg",
+      "images/received_679884470840860.jpeg",
+      "images/IMG_0533.JPG",
+      "images/IMG_0536.JPG",
+      "images/photo5.jpg",
+      "images/photo6.jpg",
+      "images/photo7.jpg",
+      "images/photo8.jpg",
+      "images/photo9.jpg",
+      "images/photo10.jpg"
+    ]
+  },
+
+  "footer": {
+    "text": "Owensboro Mowing Company",
+    "year": "2024"
+  },
+
+  "meta": {
+    "title": "Owensboro Mowing Company - Professional Lawn Care",
+    "description": "Professional lawn care services in Owensboro, KY. Mowing, landscaping, overgrowth control, and more.",
+    "keywords": "lawn care, mowing, landscaping, Owensboro, Kentucky"
+  }
+}
