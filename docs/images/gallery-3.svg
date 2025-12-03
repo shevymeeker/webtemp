@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="750" viewBox="0 0 1200 750" role="img" aria-labelledby="g3-title g3-desc">
+  <title id="g3-title">Roof tear-off crews</title>
+  <desc id="g3-desc">Graphic featuring fast roof tear-off and dry-in ready messaging.</desc>
+  <defs>
+    <linearGradient id="g3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1b1a28" />
+      <stop offset="100%" stop-color="#3e2436" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="750" fill="url(#g3)" />
+  <rect x="60" y="100" width="1080" height="540" rx="22" fill="#0f1118" opacity="0.55" stroke="#f07864" stroke-width="3" />
+  <text x="140" y="300" fill="#f6f2eb" font-family="'Inter','Segoe UI',sans-serif" font-size="62" font-weight="800">Roof Tear-Off Crews</text>
+  <text x="140" y="365" fill="#ffc6b3" font-family="'Inter','Segoe UI',sans-serif" font-size="30" font-weight="500">Protection, staging, and dry-in ready surfaces the same day.</text>
+  <text x="140" y="420" fill="#f6f2eb" font-family="'Inter','Segoe UI',sans-serif" font-size="26" font-weight="500">Shingles • Membranes • Edge metal • Haul-offs</text>
+</svg>

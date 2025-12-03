@@ -134,7 +134,7 @@ function populatePage(data) {
     const carouselSlides = document.querySelector('.carousel-slides');
     if (carouselSlides && data.gallery.images) {
       carouselSlides.innerHTML = data.gallery.images.map(image =>
-        `<div class="carousel-slide"><img src="${image}" alt="Notta-Trace tree service project photo"></div>`
+        `<div class="carousel-slide"><img src="${image}" alt="${data.business.name} project photo"></div>`
       ).join('');
 
       // Initialize carousel
@@ -253,22 +253,26 @@ function insertStructuredData(data) {
   script.type = 'application/ld+json';
   const phone = data.business.phone || '';
   const sanitizedPhone = phone.replace(/[^\d+]/g, '');
+  const addressLine = data.business.address || '';
+  const [lineLocality = '', lineRegion = '', lineCountry = ''] = addressLine.split(',').map(part => part.trim());
+  const logoPath = data.business.logo || 'logo.svg';
+
   script.textContent = JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
     name: data.business.name,
-    image: new URL('logo.png', window.location.href).href,
+    image: new URL(logoPath, window.location.href).href,
     url: window.location.href,
     telephone: phone,
     email: data.business.email || undefined,
     address: {
       '@type': 'PostalAddress',
-      streetAddress: data.business.address,
-      addressLocality: 'McLean County',
-      addressRegion: 'KY',
-      addressCountry: 'US'
+      streetAddress: addressLine || undefined,
+      addressLocality: data.business.locality || lineLocality || undefined,
+      addressRegion: data.business.region || lineRegion || undefined,
+      addressCountry: data.business.country || lineCountry || 'US'
     },
-    areaServed: data.contact.heading || 'McLean County, KY',
+    areaServed: data.contact.heading || addressLine || undefined,
     sameAs: [
       sanitizedPhone ? `tel:${sanitizedPhone}` : undefined,
       data.business.email ? `mailto:${data.business.email}` : undefined

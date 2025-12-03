@@ -1,88 +1,90 @@
 {
   "business": {
-    "name": "Notta-Trace Tree Service",
-    "tagline": "Support Local",
-    "subtitle": "Professional tree removal and stump grinding with complete cleanup",
-    "phone": "(270) 499 0735",
-    "email": "Notta-Trace@gmail.com",
-    "address": "McLean County, Kentucky, USA",
-    "brandColor": "#245334",
-    "brandColorHover": "#3b8a5a"
+    "name": "Dismantle Demo Solutions",
+    "tagline": "Clean. Controlled. On Schedule.",
+    "subtitle": "Selective demolition, interior strip-outs, concrete cutting, and debris hauling for build-back ready sites.",
+    "phone": "(502) 555-0149",
+    "email": "hello@dismantledemo.com",
+    "address": "Louisville, Kentucky, USA",
+    "locality": "Louisville",
+    "region": "KY",
+    "country": "USA",
+    "logo": "logo.svg",
+    "brandColor": "#c84b56",
+    "brandColorHover": "#ff7a8a"
   },
 
   "hero": {
-    "backgroundImage": "background.jpg",
-    "ctaText": "Get Free Estimate",
+    "backgroundImage": "images/dismantle-hero.svg",
+    "ctaText": "Schedule a walkthrough",
     "ctaLink": "#contact"
   },
 
   "services": [
     {
-      "name": "Tree Removal",
-      "description": "Safe removal of hazardous, dead, or unwanted trees with complete debris cleanup and site restoration."
+      "name": "Selective Interior Demolition",
+      "description": "Dust-controlled removal of drywall, ceilings, fixtures, and casework with clean separations for build-back crews."
     },
     {
-      "name": "Trimming and Pruning",
-      "description": "Professional tree trimming and pruning to improve tree health, reduce hazards, and maintain property aesthetics."
+      "name": "Concrete Cutting & Removal",
+      "description": "Saw-cut slabs, curbs, and pads with rapid debris hauling so re-pours stay on schedule."
     },
     {
-      "name": "Stump Grinding",
-      "description": "Complete stump grinding and removal to clear your landscape and prepare sites for replanting or construction."
+      "name": "Roof Tear-Offs",
+      "description": "Protection, staging, and dry-in ready surfaces by end of day for reroofs and repairs."
     },
     {
-      "name": "Emergency/ Storm Damage",
-      "description": "Emergency response for fallen trees, storm damage, and urgent tree hazards threatening property or safety."
+      "name": "Debris Logistics",
+      "description": "Roll-offs, metal separation, and daily haul-offs that keep sites clear and inspectors happy."
     }
   ],
 
   "contact": {
-    "heading": "McLean County and surrounding areas",
-    "subheading": "Snap a Pic, Send it in, Get a free quote",
+    "heading": "Greater Louisville & Southern Indiana",
+    "subheading": "Snap site photos or book a walk-through. Get a same-day plan.",
     "fields": [
       {
         "type": "text",
-        "placeholder": "Notta-Trace Tree Service",
+        "placeholder": "Your name or company",
         "required": true
       },
       {
         "type": "email",
-        "placeholder": "Notta-Trace@gmail.com",
+        "placeholder": "hello@dismantledemo.com",
         "required": true
       },
       {
         "type": "tel",
-        "placeholder": "2704990735",
+        "placeholder": "(502) 555-0149",
         "required": false
       },
       {
         "type": "textarea",
-        "placeholder": "Show us the problem",
+        "placeholder": "Scope: interior demo, concrete cut, roof tear-off, hauling",
         "required": true
       }
     ],
-    "submitText": "Request Quote",
+    "submitText": "Request Demo Plan",
     "formAction": "#"
   },
 
   "gallery": {
     "images": [
-      "images/before-after-1.jpg",
-      "images/before-after-2.jpg",
-      "images/kitchen-clean.jpg",
-      "images/office-clean.jpg",
-      "images/carpet-clean.jpg",
-      "images/window-clean.jpg"
+      "images/gallery-1.svg",
+      "images/gallery-2.svg",
+      "images/gallery-3.svg",
+      "images/gallery-4.svg"
     ]
   },
 
   "footer": {
-    "text": "Notta-Trace - Freindly Neighborhood Tree Service",
+    "text": "Dismantle Demo Solutions",
     "year": "2025"
   },
 
   "meta": {
-    "title": "Notta Trace Tree Service - Mclean County, Ky | Tree Removal ",
-    "description": "Professional tree removal, trimming, stump grinding, and emergency services. Complete cleanup with zero debris left behind. Licensed and insured.",
-    "keywords": "tree removal mclean county ky, emergency tree service, stump grinding, storm cleanup, insured, local tree trimming"
+    "title": "Dismantle Demo Solutions | Selective Demolition & Cleanup",
+    "description": "Selective demolition, interior strip-outs, concrete cutting, and debris hauling for construction-ready handoffs.",
+    "keywords": "selective demolition, interior demo, debris hauling, roof tear-off, concrete removal, Louisville demo"
   }
 }

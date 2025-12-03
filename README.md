@@ -27,3 +27,13 @@ To test locally:
 cd docs && npx serve
 ```
 Then open `http://localhost:3000/index.html`
+
+## Downloadable Bundle
+
+If you prefer a single archive, you can generate `dismantle-demo-site.zip` locally so the PR stays free of binary attachments:
+
+```bash
+node scripts/bundle-site.js
+```
+
+The script packages the entire `docs/` folder into the archive (placed at the repo root) without checking the binary into Git.

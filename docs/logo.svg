@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="640" viewBox="0 0 640 640" role="img" aria-labelledby="title desc">
+  <title id="title">Dismantle Demo Solutions logo</title>
+  <desc id="desc">Minimal roofline with red gradient stroke above the word Dismantle on a charcoal background.</desc>
+  <defs>
+    <linearGradient id="roof" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f15b6f" />
+      <stop offset="60%" stop-color="#f07864" />
+      <stop offset="100%" stop-color="#f6a08c" />
+    </linearGradient>
+  </defs>
+  <rect width="640" height="640" fill="#0c0b10" rx="28" />
+  <path d="M120 360 L320 170 L520 360 L520 500 L410 500 L410 410 L230 410 L230 500 L120 500 Z" fill="none" stroke="url(#roof)" stroke-width="18" stroke-linejoin="round" stroke-linecap="round" />
+  <rect x="320" y="430" width="80" height="110" fill="none" stroke="url(#roof)" stroke-width="16" rx="8" />
+  <text x="140" y="150" fill="#f5f2e9" font-family="'Inter', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="54" font-weight="700">Dismantle</text>
+  <text x="140" y="200" fill="#f07864" font-family="'Inter', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="28" font-weight="600">Demo Solutions</text>
+</svg>

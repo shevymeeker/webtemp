@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="hero-title hero-desc">
+  <title id="hero-title">Dismantle Demo Solutions hero background</title>
+  <desc id="hero-desc">Charcoal and crimson gradient background with light grid and tagline text.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0c0b10" />
+      <stop offset="55%" stop-color="#16141f" />
+      <stop offset="100%" stop-color="#29111b" />
+    </linearGradient>
+    <linearGradient id="flare" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f05b67" stop-opacity="0.05" />
+      <stop offset="50%" stop-color="#f07864" stop-opacity="0.22" />
+      <stop offset="100%" stop-color="#ffb5a0" stop-opacity="0.18" />
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)" />
+  <rect x="-120" y="200" width="1840" height="240" fill="url(#flare)" transform="rotate(-6 800 450)" />
+  <rect x="-80" y="520" width="1740" height="200" fill="url(#flare)" transform="rotate(4 800 620)" />
+  <g stroke="#f07864" stroke-width="1" stroke-opacity="0.22">
+    <line x1="0" y1="200" x2="1600" y2="200" />
+    <line x1="0" y1="400" x2="1600" y2="400" />
+    <line x1="0" y1="600" x2="1600" y2="600" />
+    <line x1="0" y1="800" x2="1600" y2="800" />
+  </g>
+  <g fill="#f4ede6" font-family="'Inter','Segoe UI','Helvetica Neue',Arial,sans-serif">
+    <text x="200" y="460" font-size="72" font-weight="800">Dismantle Demo Solutions</text>
+    <text x="200" y="520" font-size="36" font-weight="500" fill="#ffc2b1">Selective demolition • Interior strip-outs • Debris hauling</text>
+  </g>
+</svg>
