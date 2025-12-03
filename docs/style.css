@@ -3,15 +3,15 @@
    =================================== */
 
 :root {
-  --brand-ink: #0a0f0c;
-  --brand-deep: #0f1a14;
-  --brand-forest: #245334;
-  --brand-forest-bright: #3b8a5a;
-  --brand-cream: #f3ede0;
-  --brand-gold: #c7a66a;
+  --brand-ink: #0c0b10;
+  --brand-deep: #141420;
+  --brand-forest: #c84b56;
+  --brand-forest-bright: #ff7a8a;
+  --brand-cream: #f4ede6;
+  --brand-gold: #ffb48a;
   --brand-color: var(--brand-forest);
   --brand-color-hover: var(--brand-forest-bright);
-  --hero-image: url('background.jpg');
+  --hero-image: url('images/dismantle-hero.svg');
 }
 
 * {
@@ -27,9 +27,9 @@ html {
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
-  background: radial-gradient(circle at 20% 20%, rgba(58, 138, 90, 0.08), transparent 35%),
-    radial-gradient(circle at 80% 0%, rgba(199, 166, 106, 0.1), transparent 30%),
-    linear-gradient(135deg, #0d1510, #0a0f0c 45%, #0f1a14);
+  background: radial-gradient(circle at 18% 18%, rgba(240, 91, 103, 0.08), transparent 35%),
+    radial-gradient(circle at 80% 0%, rgba(255, 180, 138, 0.12), transparent 30%),
+    linear-gradient(135deg, #0f1018, #0c0b10 45%, #161420);
   color: var(--brand-cream);
   line-height: 1.6;
   overflow-x: hidden;
