@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Professional tree removal, trimming, stump grinding, and emergency services. Complete cleanup with zero debris left behind. Licensed and insured." />
-  <meta name="keywords" content="tree removal mclean county ky, emergency tree service, stump grinding, storm cleanup, insured arborist, local tree trimming" />
-  <title>Notta Trace Tree Service - Mclean County, Ky | Tree Removal </title>
+  <meta name="description" content="{{META_DESCRIPTION}}" />
+  <meta name="keywords" content="{{META_KEYWORDS}}" />
+  <title>{{META_TITLE}}</title>
   <meta name="theme-color" content="#245334" />
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -14,9 +14,9 @@
   <!-- Header -->
   <header>
     <div class="logo">
-      <img src="logo.png" alt="Notta-Trace Tree Service logo" class="brand-mark" />
+      <img src="logo.png" alt="{{BUSINESS_NAME}} logo" class="brand-mark" />
       <div class="brand-text">
-        <span class="brand-name">Notta-Trace Tree Service</span>
+        <span class="brand-name">{{BUSINESS_NAME}}</span>
         <span class="brand-subline">Local tree removal & cleanup pros</span>
       </div>
     </div>
@@ -40,20 +40,16 @@
   </div>
 
   <!-- Hero Section -->
-  <section class="hero">
+  <section class="hero" style="background-image: url('{{HERO_BACKGROUND_IMAGE}}')">
     <div class="hero-overlay"></div>
     <div class="hero-content">
-      <p class="hero-kicker">Friendly Service. Serious Standards.</p>
+      <p class="hero-kicker">{{HERO_KICKER}}</p>
       <h1 class="hero-title">
-        NOTTA TRACE
+        {{HERO_TITLE}}
       </h1>
-      <p class="hero-subtitle fade-in-up delay-3">Professional Tree Removal and Stump Grinding</p>
-      <div class="hero-badges">
-        <span class="pill">Licensed &amp; Insured</span>
-        <span class="pill">Same-day Estimates</span>
-        <span class="pill">Complete Cleanups</span>
-      </div>
-      <a href="#contact" class="quote-btn pulse-btn">Get Free Estimate</a>
+      <p class="hero-subtitle fade-in-up delay-3">{{HERO_SUBTITLE}}</p>
+      {{HERO_BADGES_HTML}}
+      <a href="{{HERO_CTA_LINK}}" class="quote-btn pulse-btn">{{HERO_CTA_TEXT}}</a>
     </div>
   </section>
 
@@ -62,52 +58,20 @@
     <h2>Our<br>Services</h2>
 
     <div class="accordion">
-      
-      <div class="accordion-item">
-        <button class="accordion-header">Tree Removal</button>
-        <div class="accordion-content">
-          <p>Safe removal of hazardous, dead, or unwanted trees with complete debris cleanup and site restoration.</p>
-        </div>
-      </div>
-
-      <div class="accordion-item">
-        <button class="accordion-header">Trimming and Pruning</button>
-        <div class="accordion-content">
-          <p>Professional tree trimming and pruning to improve tree health, reduce hazards, and maintain property aesthetics.</p>
-        </div>
-      </div>
-
-      <div class="accordion-item">
-        <button class="accordion-header">Stump Grinding</button>
-        <div class="accordion-content">
-          <p>Complete stump grinding and removal to clear your landscape and prepare sites for replanting or construction.</p>
-        </div>
-      </div>
-
-      <div class="accordion-item">
-        <button class="accordion-header">Emergency/ Storn Damage</button>
-        <div class="accordion-content">
-          <p>emergency response for fallen trees, storm damage, and urgent tree hazards threatening property or safety.</p>
-        </div>
-      </div>
+      {{SERVICES_HTML}}
     </div>
   </section>
 
   <!-- Contact Section -->
   <section id="contact" class="contact">
-    <h2>McLean County and surrounding areas</h2>
-    <p>Snap a Pic, Send it in, Get a free quote</p>
+    <h2>{{CONTACT_HEADING}}</h2>
+    <p>{{CONTACT_SUBHEADING}}</p>
     <div class="contact-actions">
-      <a class="contact-chip" id="callLink" href="tel:2704990735">Call Jared</a>
-      <a class="contact-chip" id="textLink" href="sms:2704990735">Text us photos</a>
-      <a class="contact-chip" id="emailLink" href="mailto:Notta-Trace@gmail.com">Email a description</a>
+      {{CONTACT_CHIPS_HTML}}
     </div>
-    <form action="#" method="POST">
-            <input type="text" placeholder="Notta-Trace Tree Service" required>
-      <input type="email" placeholder="Notta-Trace@gmail.com" required>
-      <input type="tel" placeholder="2704990735" >
-      <textarea placeholder="Show us the problem" required></textarea>
-      <button type="submit">Request Quote</button>
+    <form action="{{CONTACT_FORM_ACTION}}" method="POST">
+      {{CONTACT_FORM_FIELDS}}
+      <button type="submit">{{CONTACT_SUBMIT_TEXT}}</button>
     </form>
   </section>
 
@@ -115,12 +79,7 @@
   <section id="gallery" class="gallery">
     <div class="carousel-container">
       <div class="carousel-slides">
-                <div class="carousel-slide"><img src="images/before-after-1.jpg" alt="Gallery image"></div>
-        <div class="carousel-slide"><img src="images/before-after-2.jpg" alt="Gallery image"></div>
-        <div class="carousel-slide"><img src="images/kitchen-clean.jpg" alt="Gallery image"></div>
-        <div class="carousel-slide"><img src="images/office-clean.jpg" alt="Gallery image"></div>
-        <div class="carousel-slide"><img src="images/carpet-clean.jpg" alt="Gallery image"></div>
-        <div class="carousel-slide"><img src="images/window-clean.jpg" alt="Gallery image"></div>
+        {{GALLERY_IMAGES_HTML}}
       </div>
       <div class="gallery-controls">
         <button class="prev-btn">&lt;</button>
@@ -132,21 +91,15 @@
 
   <footer>
     <div class="footer-brand">
-      <img src="logo.png" alt="Notta-Trace Tree Service logo" class="footer-logo" />
+      <img src="logo.png" alt="{{BUSINESS_NAME}} logo" class="footer-logo" />
       <div class="footer-copy">
-        <p class="footer-title">Notta-Trace Tree Service</p>
-        <p class="footer-tagline">Serving Mclean County and surrounding Kentucky towns with safe, tidy tree work.</p>
+        <p class="footer-title">{{FOOTER_TITLE}}</p>
+        <p class="footer-tagline">{{FOOTER_TAGLINE}}</p>
       </div>
     </div>
     <div class="footer-meta">
-      <p>&copy; 2025 Notta-Trace - Freindly Neighborhood Tree Service</p>
-      <p class="footer-links">
-        <a href="tel:2704990735">Call now</a>
-        <span aria-hidden="true">•</span>
-        <a href="sms:2704990735">Text photos</a>
-        <span aria-hidden="true">•</span>
-        <a href="mailto:Notta-Trace@gmail.com">Email</a>
-      </p>
+      <p>&copy; {{FOOTER_YEAR}} {{FOOTER_TEXT}}</p>
+      {{FOOTER_LINKS_HTML}}
     </div>
   </footer>
 
